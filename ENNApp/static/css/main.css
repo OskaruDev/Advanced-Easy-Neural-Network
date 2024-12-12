@@ -1,0 +1,244 @@
+
+
+
+#msjErr i{
+    font-size:20px;
+    color:#c00000;
+}
+
+#msjErr strong,span{
+    font-size:18px;
+}
+
+#msjCorrect i{
+    font-size:20px;
+    color:#19b900;
+}
+
+#msjCorrect strong,span{
+    font-size:18px;
+}
+
+#loginError i,strong,span{
+    font-size:16px;
+}
+
+#logOutIcon{
+    font-size:28px;
+    color:#ff0000;
+}
+
+
+#userNameLabel{
+    color:white;
+}
+
+#registerError span{
+    font-size:16px;
+}
+
+#gotoUploadViewButtom{
+    margin: auto;
+    display: block;
+}
+
+.centerDiv{
+    text-align:center;
+}
+
+.blueSpan{
+    color: #2FA4E7;
+}
+
+.detailParagraph{
+    margin-bottom: 1px;
+}
+
+.secondRow{
+    margin-left: 150px;
+}
+
+.centerMargin{
+    margin: auto;
+}
+
+#executeModelButtom{
+    display: none;
+    text-align: center;
+    margin: 16px;
+}
+
+.redColor{
+    color: #ff0000;
+}
+
+.deleteLayerButtom{
+    margin-top: 33px;
+}
+
+.addLayerButtom{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#msjErrorName{
+    width: 530px;
+}
+
+#msjErrorName i,strong{
+    font-size: 18px;
+}
+
+.centerMax {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    min-width: 600px;
+  }
+
+.divStepButtons{
+    text-align:center;
+    margin-top:10px;
+}
+
+.stepCircleIndicator{
+    text-align:center;
+    margin-top:20px;
+}
+
+.buttomGroup{
+    padding: 10px;
+    font-size: 20px;
+}
+
+.downloadbuttom{
+    padding: 12px;
+    color:#6c81f7;
+}
+
+.downloadbuttom:hover{
+    color:#0026ff;
+}
+
+.downloadCode{
+    padding-left: 12px;
+    color:#ffc650;
+}
+
+.downloadCode:hover{
+    color:#d79d27;
+}
+
+.deletebuttom{
+    color:#ff8484
+}
+
+.deletebuttom:hover{
+    color:#ff0000
+}
+
+.editbuttom{
+    color:#2faf6a
+}
+
+.editbuttom:hover{
+    color:#21fa85
+}
+
+
+.msjErr i{
+    font-size:20px;
+    color:#c00000;
+}
+
+.msjErr strong,span{
+    font-size:18px;
+}
+
+.msjCorrect i{
+    font-size:20px;
+    color:#19b900;
+}
+
+.msjCorrect strong,span{
+    font-size:18px;
+}
+
+
+.customDisable{
+    color: #d0d0d0;
+}
+
+.msjWarning{
+    font-size:20px;
+}
+
+.msjWarning i{
+    color:#ffA000;
+}
+
+.crossLine{
+    text-decoration:line-through;
+}
+
+#newFileName{
+    width: 400px;
+}
+
+#runPCAButtom{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+#runPCAButtom{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+#selectTargetButtom{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+
+.createModelbuttom{
+    color: #1c17a0;
+    font-size: 27px;
+    text-align: center;
+}
+
+.createModelbuttom:hover{
+    color:#005fff
+}
+
+/***
+Step Form
+**/
+
+
+  /* Hide all steps by default: */
+  .tabStep {
+    display: none;
+  }
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;  
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #4CAF50;
+  }
+
