@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 # keras
 import keras
 from keras.models import Sequential
-from keras.layers.core import Dense
+from keras.layers import Dense
 from .untils import readDataset, writeDataset, writeFile, createDirIfNotExist, readFile, writeFileWithJson
 
 #from sklearn.model_selection import StratifiedKFold
