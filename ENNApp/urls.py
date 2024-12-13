@@ -23,7 +23,12 @@ urlpatterns = [
     path('preprocessDataset/', datasetView.preprocessDataset, name='preprocessDataset'),
     path('principalComponentAnalysis/', datasetView.principalComponentAnalysis, name='principalComponentAnalysis'),
     path('selectDataset/', datasetView.selectDataset, name='selectDataset'),
-
+    path('listNeuralNetwork/', neuralNetworkView.listNeuralNetwork, name='listNeuralNetwork'),
+    path('deleteNeuralNetwork/<str:userName>/<str:fileName>/', neuralNetworkView.deleteNeuralNetwork, name='deleteNeuralNetwork'),
+    path('createModel/<str:fileName>/', neuralNetworkView.createModel, name='createModel'),
+    path('executeModel/', neuralNetworkView.executeModel, name='executeModel'),
+    path('detailNeuralNetwork/<str:fileName>/', neuralNetworkView.detailNeuralNetwork, name='detailNeuralNetwork'),
+    #path('deleteDataset/', datasetView.deleteDataset, name='deleteDataset'),
     path('login/', userView.loginUser, name='login'),
     path('logout/', userView.logoutUser, name='logout'),
     path('register/', userView.registerUser, name='register'),
