@@ -6,7 +6,7 @@ import sys
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 # tensorflow
-import tensorflow
+#import tensorflow
 # keras
 import keras
 from keras.models import Sequential
