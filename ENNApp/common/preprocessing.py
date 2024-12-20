@@ -14,7 +14,7 @@ def getSamples(datasetPaht, numSamples=30):
     #dataframe.sample(n=numMuestras, random_state=1) Produce siempre los mismos resultados
 
 
-    #Get Cateforicos
+    #Get Categoricos
     cols = dataframe.columns
 
     numericCols = dataframe._get_numeric_data().columns
@@ -27,11 +27,15 @@ def getSamples(datasetPaht, numSamples=30):
         "description": dataframe.describe(include="all").to_html(table_id="dataframeDescription", justify="left"),
         "tablehtml": sample.to_html(table_id="dataframeSample", justify="left", index =False),
         "profile": "profile.html",
-        "corr":  dataframe.corr().to_html(table_id='correlations', justify="left"),
+        "corr":  dataframe.corr(numeric_only=True).to_html(table_id='correlations', justify="left"),
         "collNames": dataframe.columns.tolist(),
         "categoricCols": categoricCols
 
     }
+
+    print(categoricCols)
+
+    print("Begin getSamples")
     return toRet
 
 

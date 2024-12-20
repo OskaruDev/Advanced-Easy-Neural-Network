@@ -197,7 +197,7 @@ def executeModel(request):
 
 @login_required(login_url='/login/')
 def detailNeuralNetwork(request, fileName):
-    fileBaseName = str(fileName).rstrip('.HDF5')
+    fileBaseName = str(fileName).rstrip('.keras')
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     infoPath = os.path.join(BASE_DIR, "userFiles", request.user.username , "model", "info", (fileBaseName + ".info"))
                 
