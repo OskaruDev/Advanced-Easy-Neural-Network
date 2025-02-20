@@ -55,7 +55,7 @@ ROOT_URLCONF = 'EasyNeuralNetwork.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['ENNAPP/templates'],
+        'DIRS': ['ENNApp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +118,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "ENNAPP/static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "ENNApp/static"),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'userFiles')
 

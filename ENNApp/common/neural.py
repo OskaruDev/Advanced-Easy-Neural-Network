@@ -127,7 +127,7 @@ def generateCode(model):
     code += '# keras\n'
     code += 'import keras\n'
     code += 'from keras.models import Sequential\n'
-    code += 'from keras.layers.core import Dense\n'
+    code += 'from keras.layers import Dense\n'
     code += '\n'
     code += '\n'
 
