@@ -106,7 +106,7 @@ def deleteNeuralNetwork(request, userName, fileName):
         if request.user.is_superuser or request.user.username == userName:
             BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             neuralNetworkPath = os.path.join(BASE_DIR, "userFiles", userName , "neuralNetwork", fileName)
-            fileBaseName = str(fileName).rstrip('.HDF5')
+            fileBaseName = str(fileName).rstrip('.HDF5') # TODO Cambiar Extension a Constante y .Keras
             modelPath = os.path.join(BASE_DIR, "userFiles", userName, "model", "code", (fileBaseName + ".py"))
             infoPath = os.path.join(BASE_DIR, "userFiles", userName , "model", "info", (fileBaseName + ".info"))
             
