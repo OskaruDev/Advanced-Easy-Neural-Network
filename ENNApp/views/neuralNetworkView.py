@@ -12,6 +12,7 @@ import os, time
 import math
 from ..common import preprocessing
 from ..common import neural
+from ..common.untils import readFile
 import json
 
 
@@ -38,7 +39,7 @@ def listNeuralNetwork(request):
                 #Get Code and Model
                 codeUrl = ""
                 infoUrl = ""
-                fileBaseName = str(file).rstrip('.HDF5')
+                fileBaseName = str(file).rstrip('.keras')
                 modelPath = os.path.join(BASE_DIR, "userFiles", request.user.username, "model", "code", (fileBaseName + ".py"))
                 infoPath = os.path.join(BASE_DIR, "userFiles", request.user.username , "model", "info", (fileBaseName + ".info"))
                 
@@ -72,7 +73,7 @@ def listNeuralNetwork(request):
                             #Get Code and Model
                             codeUrl = ""
                             infoUrl = ""
-                            fileBaseName = str(file).rstrip('.HDF5')
+                            fileBaseName = str(file).rstrip('.keras')
                             modelPath = os.path.join(BASE_DIR, "userFiles", userDir, "model", "code", (fileBaseName + ".py"))
                             infoPath = os.path.join(BASE_DIR, "userFiles", userDir , "model", "info", (fileBaseName + ".info"))
                             
@@ -92,13 +93,37 @@ def listNeuralNetwork(request):
                                 "infoUrl": infoUrl,
                                 "codeUrl": codeUrl
                                 })
-        
-             
+        #Get The current Training Neural Network List
+        infoPath = os.path.join(BASE_DIR, "userFiles", request.user.username ,"model", "info")
+        currentTrainingList = getTrainingList(request, infoPath)
+            
         context.update({'neuralNetworks': neuralNetworks})
+        context.update({'currentTrainingList': currentTrainingList})
     
     loadContextMessages(request,context)
     
     return render(request, 'ENNApp/listNeuralNetworks.html', context)
+
+def getTrainingList(request, infoPath):
+    currentTrainingList = []
+
+    for file in os.listdir(infoPath):
+        if ".temp" in file: 
+            filePath = os.path.join(infoPath, file)
+            if os.path.isfile(filePath):
+                infoJson = json.loads(readFile(filePath))
+                    #Append Data
+                currentTrainingList.append({
+                        "name": infoJson["name"], 
+                        "userOwner": request.user.username , 
+                        "creationDate": time.ctime(os.path.getctime(filePath)),
+                        "maxEpoch": infoJson["maxEpoch"], 
+                        "actualEpoch": infoJson["actualEpoch"], 
+                        "percentage": int(infoJson["actualEpoch"]) / int(infoJson["maxEpoch"]),
+                        "loss": infoJson["loss"], 
+                        })
+                    
+    return currentTrainingList
 
 @login_required(login_url='/login/')
 def deleteNeuralNetwork(request, userName, fileName):
@@ -106,7 +131,7 @@ def deleteNeuralNetwork(request, userName, fileName):
         if request.user.is_superuser or request.user.username == userName:
             BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             neuralNetworkPath = os.path.join(BASE_DIR, "userFiles", userName , "neuralNetwork", fileName)
-            fileBaseName = str(fileName).rstrip('.HDF5') # TODO Cambiar Extension a Constante y .Keras
+            fileBaseName = str(fileName).rstrip('.keras') # TODO Cambiar Extension a Constante y .Keras
             modelPath = os.path.join(BASE_DIR, "userFiles", userName, "model", "code", (fileBaseName + ".py"))
             infoPath = os.path.join(BASE_DIR, "userFiles", userName , "model", "info", (fileBaseName + ".info"))
             
@@ -220,3 +245,21 @@ def detailNeuralNetwork(request, fileName):
     loadContextMessages(request,context)
     context.update({"datasetName": fileName})
     return render(request, 'ENNApp/neuralNetworkDetail.html', context)
+
+
+
+
+@login_required(login_url='/login/')
+def listTrainingNeuralNetwork(request):
+    context = {} 
+    
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+    #Get The current Training Neural Network List
+    infoPath = os.path.join(BASE_DIR, "userFiles", request.user.username ,"model", "info")
+    currentTrainingList = getTrainingList(request, infoPath)
+           
+    context.update({'currentTrainingList': currentTrainingList})
+    loadContextMessages(request,context)
+    
+    return render(request, 'ENNApp/trainingTable.html', context)

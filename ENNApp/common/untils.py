@@ -33,3 +33,8 @@ def writeFileWithJson(source,dir, filename):
     #source = json.dumps(str(source))
     source = json.dumps(source)
     writeFile(source,dir, filename) 
+
+def deleteFile(dir, filename):
+    filePath = os.path.join(dir, filename)
+    if(os.path.exists(filePath)):
+        os.remove(filePath)

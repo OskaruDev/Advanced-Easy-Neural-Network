@@ -19,45 +19,6 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request, 'ENNApp/index.html', {})
 
-'''
-@login_required(login_url='/login/')
-def vistaPrueba(request, numero):
-    context = {
-        'number': numero,
-    }
-    return render(request, 'ENNApp/index.html', context)
-
-
-@login_required(login_url='/login/')
-def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist")
-    return render(request, 'ENNApp/detail.html', {'question': question})
-
-
-@login_required(login_url='/login/')
-def testPost(request):
-    test= request.POST["uname"]
-    print("stop")
-
-    if request.POST["uname"] == "1" :
-        return HttpResponseRedirect(reverse('index', args=(1,)))
-    else:
-        return HttpResponse("oks -> user: "+ request.POST["uname"] + " pass: " + request.POST["upass"] )
-
-
-@login_required(login_url='/login/')
-def testForm(request):
-    context = {
-        'number': 23,
-    }
-    return render(request, 'ENNApp/index.html', context)
-'''
-
-
-
 
 def loginUser(request):
     if request.method == "POST" and request.POST['username'] and request.POST['password']:

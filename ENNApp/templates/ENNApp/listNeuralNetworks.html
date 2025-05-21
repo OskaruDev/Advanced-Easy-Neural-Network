@@ -1,5 +1,5 @@
 {% extends './baseTemplate.html' %}
-
+{% load static %}
 {% block mainBlock %} 
 
 
@@ -8,7 +8,7 @@
      <div class="card mb-3">
         <div class="card-header">
           <i class="fas fa-table"></i>
-          Neural Networks List</div>
+          Trained Neural Networks List</div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered neuralNetworkTable" width="100%" cellspacing="0">
@@ -70,6 +70,18 @@
 
       </div>
 
+     <!-- DataTable Training NeuralNetwork -->
+     <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          List of neural networks currently being trained</div>
+        <div class="card-body" id="includeTrainingTable">
+          {% include 'ENNApp/trainingTable.html' %}
+        </div>
+        <div class="card-footer small text-muted"></div>
+
+      </div>
+
       <!-- Modal -->
         <div class="modal fade" id="DeleteMessageModal" tabindex="-1" role="dialog" aria-labelledby="Delete Confirmation" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -90,5 +102,4 @@
                 </div>
             </div>
         </div>
-
 {% endblock %}

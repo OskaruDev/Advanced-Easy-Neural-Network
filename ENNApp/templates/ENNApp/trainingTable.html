@@ -1,0 +1,48 @@
+{% block trainingTable %}
+<div class="table-responsive">
+  {% if not currentTrainingList %}
+  There is no neural network training at this time 
+  {% endif %}
+  {% if currentTrainingList %}
+  <table class="table table-bordered neuralNetworkTable" width="100%" cellspacing="0">
+    <thead>
+      <tr>
+          <th>Name</th>
+          {% if user.is_superuser %}
+              <th>Owner </th>
+          {% endif %}
+          <th>Progress</th>
+          <th>Loss</th>
+
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+          <th>Name</th>
+          {% if user.is_superuser %}
+              <th>Owner </th>
+          {% endif %}
+          <th>Progress</th>
+          <th>Loss</th>
+      </tr>
+    </tfoot>
+    <tbody>
+      {% for trainingNeuralNetwork in currentTrainingList %}
+          <tr>
+              <td>{{ trainingNeuralNetwork.name }}</td>
+              {% if user.is_superuser %}
+                  <th>{{ trainingNeuralNetwork.userOwner | capfirst }} </th>
+              {% endif %}
+              <td><progress id="file" max="{{ trainingNeuralNetwork.maxEpoch }}" value="{{ trainingNeuralNetwork.actualEpoch }}">{{ trainingNeuralNetwork.percentage }}%</progress></td>
+              <td>{{ trainingNeuralNetwork.loss }}</td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <script>
+    var urlTrainList = "{% url 'listTrainingNeuralNetwork' %}";
+    $(document).ready(()=> (delayReloadTrainTable(urlTrainList, 5000)));
+  </script>
+  {% endif %}
+</div>
+{% endblock %}

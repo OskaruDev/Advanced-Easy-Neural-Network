@@ -316,6 +316,8 @@ function executeModels(){
     dataNames, dataNames
   });
 
+  const intervaloReloadTrainTable = setInterval(reloadTrainTable(urlTrainList), 5000);
+
   $.post(executeModelUrl, 
     {
       data: data,
@@ -324,12 +326,28 @@ function executeModels(){
       csrfmiddlewaretoken: csrftoken
     },
     function(htmlexterno){
+        clearInterval(intervaloReloadTrainTable);
         console.log(htmlexterno);
         location.href=urlSucess;
+    });
+
+}
+
+function reloadTrainTable(url) {
+    $.ajax({
+        url: url
+    }).done(function (data) {
+        $("#includeTrainingTable").children().remove()
+        $("#includeTrainingTable").append(data)
     });
 }
 
 
+function delayReloadTrainTable(url, time) {
+    setTimeout(() => {
+        reloadTrainTable(url);
+    }, time);
+}
 
 function addLayerRow(){
   layerRow = '<div class="form-row layerRow">'

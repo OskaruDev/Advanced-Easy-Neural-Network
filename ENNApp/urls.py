@@ -24,6 +24,7 @@ urlpatterns = [
     path('principalComponentAnalysis/', datasetView.principalComponentAnalysis, name='principalComponentAnalysis'),
     path('selectDataset/', datasetView.selectDataset, name='selectDataset'),
     path('listNeuralNetwork/', neuralNetworkView.listNeuralNetwork, name='listNeuralNetwork'),
+    path('listTrainingNeuralNetwork/', neuralNetworkView.listTrainingNeuralNetwork, name='listTrainingNeuralNetwork'),
     path('deleteNeuralNetwork/<str:userName>/<str:fileName>/', neuralNetworkView.deleteNeuralNetwork, name='deleteNeuralNetwork'),
     path('createModel/<str:fileName>/', neuralNetworkView.createModel, name='createModel'),
     path('executeModel/', neuralNetworkView.executeModel, name='executeModel'),
