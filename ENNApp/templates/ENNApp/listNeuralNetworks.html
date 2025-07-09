@@ -64,7 +64,9 @@
             </table>
           </div>
           <br>
-          <button type="button" id="gotoUploadViewButtom" onclick="location.href='{% url 'selectDataset' %}';" class="btn btn-primary centerButtom">New Neural Network</button>
+          <div class="centerDiv">
+            <button type="button" id="gotoUploadViewButtom" onclick="location.href='{% url 'uploadNeuralNetworkView' %}';" class="btn btn-primary centerButtom mx-5">Upload Neural Network</button>
+          </div>
         </div>
         <div class="card-footer small text-muted"></div>
 
@@ -79,8 +81,11 @@
           {% include 'ENNApp/trainingTable.html' %}
         </div>
         <div class="card-footer small text-muted"></div>
-
       </div>
+          <br>
+          <div class="centerDiv">
+            <button type="button" id="gotoUploadViewButtom" onclick="location.href='{% url 'selectDataset' %}';" class="btn btn-primary centerButtom mx-5">Train New Neural Network</button>
+          </div>
 
       <!-- Modal -->
         <div class="modal fade" id="DeleteMessageModal" tabindex="-1" role="dialog" aria-labelledby="Delete Confirmation" aria-hidden="true">

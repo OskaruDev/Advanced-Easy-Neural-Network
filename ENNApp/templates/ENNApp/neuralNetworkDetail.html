@@ -2,11 +2,18 @@
 
 {% block mainBlock %}
 
+<!--Load executeModel Url-->
+<script type="text/javascript">
+    var urlEvaluateModel = "{% url 'evaluateModel' %}"; 
+    var urlSelectTargetModal = "{% url 'selectTargetModal' %}"; 
+</script>
+<!--End executeModel Url-->
+
 
 <div class="form-group">
     <div class="card mb-3">
         <div class="card-header">
-            <h4>Details of the neural network</h4>
+            <h4>Details of the Neural Network</h4>
         </div>
         <div class="card-body">
             <div class="form-row">
@@ -29,7 +36,7 @@
                 </div>
                 <div class="secondRow">
                     <h4>Loss Function</h4>
-                    <p>{{lossFuntion}}</p>
+                    <p>{{metric}}</p>
 
                     <h4>Optimicer</h4>
                     <p>{{optimicer}}</p>
@@ -41,7 +48,89 @@
                     <p>{{batchSize}}</p>
 
                     <h4>Loss Value</h4>
-                    <p>{{lossVal}}</p>
+                    {%if lossVal == "Unknown" %}
+                         <p>Unknown</p>
+                    {% else %}
+                        {%if lossVal.metric == "mean_squared_error"%}
+                            <p>Mean Squared Error : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "mean_absolute_error"%}
+                            <p>Mean Absolute Error : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "mean_absolute_percentage_error"%}
+                            <p>Mean Absolute Percentage Error : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "mean_squared_logarithmic_error"%}
+                            <p>Mean Squared Logarithmic Error : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "squared_hinge "%}
+                            <p>Squared Hinge : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "hinge"%}
+                            <p>Hinge : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "logcosh"%}
+                            <p>Logcosh : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "categorical_hinge"%}
+                            <p>Categorical Hinge : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "categorical_crossentropy"%}
+                            <p>Categorical Crossentropy : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "sparse_categorical_crossentropy"%}
+                            <p>Sparse Categorical Crossentropy : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "binary_crossentropy"%}
+                            <p>Binary Crossentropy : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "kullback_leibler_divergence"%}
+                            <p>Kullback Leibler Divergence : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "poisson"%}
+                            <p>Poisson : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                        {%if lossVal.metric == "cosine_proximity"%}
+                            <p>Cosine Proximity : {{lossVal.value|floatformat:3}}</p>
+                        {% endif %}
+                    {% endif %}
+
+                    {%if metrics is not None %}
+                        <h4>Evaluation Metrics</h4>
+                        <ul> 
+                            {%if metrics.mean_squared_error is not None %}
+                                <li>Mean Squared Error: {{ metrics.mean_squared_error }}</li> 
+                            {% endif %}
+
+                            {%if metrics.root_mean_squared_error is not None %}
+                                <li>Root Mean Squared Error: {{ metrics.root_mean_squared_error }}</li> 
+                            {% endif %}
+
+                            {%if metrics.mean_absolute_error is not None %}
+                                <li>Mean Absolute Error: {{ metrics.mean_absolute_error }}</li> 
+                            {% endif %}
+
+                            {%if metrics.mean_absolute_percentage_error is not None %}
+                                <li>Mean Absolute Percentage Error: {{ metrics.mean_absolute_percentage_error }}</li> 
+                            {% endif %}
+
+                            {%if metrics.mean_squared_logarithmic_error is not None %}
+                                <li>Mean Squared Logarithmic Error: {{ metrics.mean_squared_logarithmic_error }}</li> 
+                            {% endif %}
+
+                            {%if metrics.cosine_similarity is not None %}
+                                <li>Cosine Similarity {{ metrics.cosine_similarity }}</li> 
+                            {% endif %}
+
+                            {%if metrics.logcosh is not None %}
+                                <li>Log Cosh {{ metrics.logcosh }}</li> 
+                            {% endif %}
+
+                            {%if metrics.r2_score is not None %}
+                                <li>R2 Score {{ metrics.r2_score }}</li> 
+                            {% endif %}
+                        </ul> 
+                    {% endif %}
                 </div>
             </div>
 
@@ -51,11 +140,124 @@
     </div>
 </div>
 
+{%if evaluateView %}
+    <input type="hidden" id="neuralNetworkName" value="{{neuralNetworkName}}">
+    <input type="hidden" id="datasetName" value="">
+    <form action="" method="post">
+        <div class="form-group">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h4>Please, select the Metric to evaluate the Model</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <!--Loss function-->
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicermean_squared_error"
+                                    class="custom-control-input" value="mean_squared_error" checked>
+                                <label class="custom-control-label" for="optimicermean_squared_error">Mean Squared
+                                    Error</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicermean_absolute_error"
+                                    class="custom-control-input" value="root_mean_squared_error">
+                                <label class="custom-control-label" for="optimicermean_absolute_error">Root Mean Squared
+                                    Error</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicermean_absolute_percentage_error"
+                                    class="custom-control-input" value="mean_absolute_error">
+                                <label class="custom-control-label" for="optimicermean_absolute_percentage_error">Mean Absolute Error</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicermean_squared_logarithmic_error"
+                                    class="custom-control-input" value="mean_absolute_percentage_error">
+                                <label class="custom-control-label" for="optimicermean_squared_logarithmic_error">Mean Absolute Percentage Error</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicersquared_hinge"
+                                    class="custom-control-input" value="mean_squared_logarithmic_error">
+                                <label class="custom-control-label" for="optimicersquared_hinge">Mean Squared Logarithmic Error</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicercosine_similarity"
+                                    class="custom-control-input" value="cosine_similarity">
+                                <label class="custom-control-label" for="optimicercosine_similarity">Cosine Similarity</label>
+                            </div>   
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicerlogcosh"
+                                    class="custom-control-input" value="logcosh">
+                                <label class="custom-control-label" for="optimicerlogcosh">Log Cosh</label>
+                            </div>                         
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="metric" id="optimicerr2_score"
+                                    class="custom-control-input" value="r2_score">
+                                <label class="custom-control-label" for="optimicerr2_score">R2 Score</label>
+                            </div>
 
-<button type="button" onclick="location.href='{% url 'listNeuralNetwork' %}';" class="btn btn-primary centerButtom">Go
-    Back</button>
-<br>
-<br>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    
+                    <h5> <i class="fas fa-table"></i> Please, select a Dataset to evaluate the model</h5>    
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered selectDatasetTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Creation Date</th>
+                                    <th>Size</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Creation Date</th>
+                                    <th>Size</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for dataset in datasets %}
+                                <tr>
+                                    <td>{{ dataset.name }}</td>
+                                    <td>{{ dataset.creationDate }}</td>
+                                    <td>{{ dataset.size }}</td>
+                                    <td>
+                                        <div class="buttomGroup form-group createModelbuttom">
+                                            <i onclick="openSelectTargetModal('{{ dataset.name }}');"
+                                                class=" fas fa-cogs"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                </div>
+                <div class="card-footer small text-muted"></div>
+            </div>
+        </div>
+    </form>
+    <button type="button" onclick="location.href='{% url 'listEvaluationView' %}';" class="btn btn-primary centerButtom">Go Back</button>
+    <br>
+    <br>
+    <div id="modalSelectTargetsContainer"></div>
+{% else %}                          
+    <button type="button" onclick="location.href='{% url 'listNeuralNetwork' %}';" class="btn btn-primary centerButtom">Go Back</button>
+    <br>
+    <br>
+{% endif %}
 
 
 

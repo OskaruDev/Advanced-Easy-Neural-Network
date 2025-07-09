@@ -3,6 +3,7 @@ from django.urls import path
 from .views import userView
 from .views import datasetView
 from .views import neuralNetworkView
+from .views import evaluateModelView
 from django.conf import settings
 from django.conf.urls.static import static
 #from django.contrib.auth import views as auth_views
@@ -15,7 +16,7 @@ urlpatterns = [
     #------------------------------------------------------
     path('', userView.index),
     path('index/', userView.index, name='index'),
-    path('uploadView/', datasetView.uploadView, name='uploadView'),
+    path('uploadDatasetView/', datasetView.uploadDatasetView, name='uploadDatasetView'),
     path('addDataset/', datasetView.addDataset, name='addDataset'),
     path('listDatasets/', datasetView.listDatasets, name='listDatasets'),
     path('showDatasetSample/<str:fileName>/', datasetView.showDatasetSample, name='showDatasetSample'),
@@ -29,7 +30,12 @@ urlpatterns = [
     path('createModel/<str:fileName>/', neuralNetworkView.createModel, name='createModel'),
     path('executeModel/', neuralNetworkView.executeModel, name='executeModel'),
     path('detailNeuralNetwork/<str:fileName>/', neuralNetworkView.detailNeuralNetwork, name='detailNeuralNetwork'),
-    #path('deleteDataset/', datasetView.deleteDataset, name='deleteDataset'),
+    path('addNeuralNetwork/', neuralNetworkView.addNeuralNetwork, name='addNeuralNetwork'),
+    path('uploadNeuralNetworkView/', neuralNetworkView.uploadNeuralNetworkView, name='uploadNeuralNetworkView'),
+    path('listEvaluationView/', evaluateModelView.listEvaluationView, name='listEvaluationView'),
+    path('evaluateNeuralNetwork/<str:fileName>/', evaluateModelView.evaluateDetailNeuralNetwork, name='evaluateDetailNeuralNetwork'),
+    path('evaluateModel/', evaluateModelView.evaluateModel, name='evaluateModel'),
+    path('selectTargetModal/', evaluateModelView.selectTargetModal, name='selectTargetModal'),
     path('login/', userView.loginUser, name='login'),
     path('logout/', userView.logoutUser, name='logout'),
     path('register/', userView.registerUser, name='register'),

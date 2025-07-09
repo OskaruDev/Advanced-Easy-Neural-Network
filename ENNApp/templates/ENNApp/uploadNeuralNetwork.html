@@ -1,0 +1,21 @@
+{% extends './baseTemplate.html' %}
+
+{% block mainBlock %} 
+
+    <form id="uploadNeruralNetwork" action="{% url 'addNeuralNetwork' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="neuralNetwork">Upload Neural Network File <span class="parentesisNote ml-1">(Only accept .keras Extension)</span></label>
+            <input id="neuralNetwork" class="form-control-file" name="neuralNetwork" type="file" />
+            <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+        </div>
+       
+    </form>
+
+    <button id="submitUploadNeruralNetwork" type="button" class="btn btn-primary">Upload</button>
+    <button type="button"  onclick="location.href='{% url 'listNeuralNetwork' %}';" class="btn btn-primary centerButtom">Go Back</button>
+
+           
+     
+
+{% endblock %}

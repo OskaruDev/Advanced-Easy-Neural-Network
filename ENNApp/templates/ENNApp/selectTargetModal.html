@@ -1,0 +1,27 @@
+<!-- Modal -->
+<div class="modal fade" id="selectTargetModal" tabindex="-1" role="dialog" aria-labelledby="Executing Models"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title centerMargin">Please, select the targets</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    {% for coll in collNames %}
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="targetColl{{ forloop.counter }}"
+                            name='targetsToModel[]' value="{{coll}}">
+                        <label class="custom-control-label" for="targetColl{{ forloop.counter }}">{{coll}}</label>
+                    </div>
+                    {% endfor %}
+                    <br>
+                    <div>
+                        <button type="submit" class="btn btn-success" onclick="evaluateModel()">Confirm and Evaluate Model</button>
+                        <button type="button" class="btn bg-secondary text-white" data-dismiss="modal">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -37,11 +37,6 @@
     font-size:16px;
 }
 
-#gotoUploadViewButtom{
-    margin: auto;
-    display: block;
-}
-
 .centerDiv{
     text-align:center;
 }
@@ -146,6 +141,14 @@
     color:#21fa85
 }
 
+.evaluatebuttom{
+    color:#962cc7
+}
+
+.evaluatebuttom:hover{
+    color:#c850ff
+}
+
 
 .msjErr i{
     font-size:20px;
@@ -242,3 +245,7 @@ Step Form
     background-color: #4CAF50;
   }
 
+.parentesisNote{
+    color: gray;
+    font-size: 1em;
+}

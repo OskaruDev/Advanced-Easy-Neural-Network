@@ -16,8 +16,8 @@ from datetime import datetime
 
 
 @login_required(login_url='/login/')
-def uploadView(request):
-    return render(request, 'ENNApp/upload.html')
+def uploadDatasetView(request):
+    return render(request, 'ENNApp/uploadDataset.html')
 
 @login_required(login_url='/login/')
 def addDataset(request):
@@ -192,7 +192,15 @@ def selectDataset(request):
 
     if not os.path.exists(dataSetsPath):
         context.update({'secondaryMessageWarning': "You haven't any dataset yet"})
-    else:
+    else:              
+        context.update({'datasets': listDataset(dataSetsPath)})
+    
+    loadContextMessages(request,context)
+    
+    return render(request, 'ENNApp/selectDataSet.html', context)
+
+
+def listDataset(dataSetsPath):
         datasets = []
         for file in os.listdir(dataSetsPath):
             filepath = os.path.join(dataSetsPath, file)
@@ -201,9 +209,4 @@ def selectDataset(request):
                     "name": file,  
                     "creationDate": time.ctime(os.path.getctime(filepath)), 
                     "size": convert_size(os.path.getsize(filepath))})
-                         
-        context.update({'datasets': datasets})
-    
-    loadContextMessages(request,context)
-    
-    return render(request, 'ENNApp/selectDataSet.html', context)
+        return datasets

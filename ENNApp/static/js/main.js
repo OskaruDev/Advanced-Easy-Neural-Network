@@ -13,6 +13,22 @@ $(document).ready(function(){
             }
         }
     });
+
+
+     $( "#submitUploadNeruralNetwork" ).click(function() {
+        
+        const file = $("#neuralNetwork").val();
+        
+        if(file == ""){
+            showError("No file selected.", "Error!");
+        }else{
+            if(file.split(".").pop() != "keras"){
+                showError("The file extension must be .keras", "Error!");
+            }else{
+                $("#uploadNeruralNetwork").submit();
+            }
+        }
+    });
 });
 
 /*
@@ -452,4 +468,55 @@ function nameExist(name){
     }
   }
   return false;
+}
+
+
+
+function evaluateModel() {
+
+  var targetsNames = [];
+  var dataNames = [];
+  
+  $("input:checkbox:checked[name='targetsToModel[]']").each(function(){
+    targetsNames.push($(this).val());
+  });
+  
+  $("input:checkbox:not(:checked)[name='targetsToModel[]']").each(function(){
+    dataNames.push($(this).val());
+  });
+  
+  var rowData = JSON.stringify({
+    targetsNames: targetsNames,
+    dataNames, dataNames
+  });
+
+ $.post(urlEvaluateModel, 
+    {
+      rowData: rowData,
+      metric: $('input:radio[name=metric]:checked').val(),
+      dataset: $("#datasetName").val(),
+      neuralNetworkName: $("#neuralNetworkName").val(),
+      csrfmiddlewaretoken: csrftoken
+    },
+    function(){
+        window.location.reload();
+        $( "#msjErr" ).scrollTop( 300 );
+    });
+
+}
+
+
+function openSelectTargetModal(dataset) {
+   $.get(urlSelectTargetModal, 
+    {
+      dataset : dataset,
+      csrfmiddlewaretoken: csrftoken
+    },
+    function(html){
+        $("#datasetName").val(dataset)
+        $("#modalSelectTargetsContainer").empty();
+        $("#modalSelectTargetsContainer").append(html);
+        $("#selectTargetModal").modal("show");
+    });
+
 }

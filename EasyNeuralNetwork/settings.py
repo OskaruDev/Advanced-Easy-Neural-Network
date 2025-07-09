@@ -129,7 +129,7 @@ MEDIA_URL = '/files/'
 from django.urls import reverse_lazy
 
 LOGIN_URL = reverse_lazy('login')
-LOGIN_REDIRECT_URL = "uploadView/"
+LOGIN_REDIRECT_URL = "index/"
 LOGOUT_REDIRECT_URL = '/login/'
 
 # Default primary key field type

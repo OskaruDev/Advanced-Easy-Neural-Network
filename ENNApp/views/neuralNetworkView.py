@@ -39,7 +39,7 @@ def listNeuralNetwork(request):
                 #Get Code and Model
                 codeUrl = ""
                 infoUrl = ""
-                fileBaseName = str(file).rstrip('.keras')
+                fileBaseName = str(file).removesuffix('.keras')
                 modelPath = os.path.join(BASE_DIR, "userFiles", request.user.username, "model", "code", (fileBaseName + ".py"))
                 infoPath = os.path.join(BASE_DIR, "userFiles", request.user.username , "model", "info", (fileBaseName + ".info"))
                 
@@ -73,7 +73,7 @@ def listNeuralNetwork(request):
                             #Get Code and Model
                             codeUrl = ""
                             infoUrl = ""
-                            fileBaseName = str(file).rstrip('.keras')
+                            fileBaseName = str(file).removesuffix('.keras')
                             modelPath = os.path.join(BASE_DIR, "userFiles", userDir, "model", "code", (fileBaseName + ".py"))
                             infoPath = os.path.join(BASE_DIR, "userFiles", userDir , "model", "info", (fileBaseName + ".info"))
                             
@@ -131,7 +131,7 @@ def deleteNeuralNetwork(request, userName, fileName):
         if request.user.is_superuser or request.user.username == userName:
             BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             neuralNetworkPath = os.path.join(BASE_DIR, "userFiles", userName , "neuralNetwork", fileName)
-            fileBaseName = str(fileName).rstrip('.keras') # TODO Cambiar Extension a Constante y .Keras
+            fileBaseName = str(fileName).removesuffix('.keras') # TODO Cambiar Extension a Constante y .Keras
             modelPath = os.path.join(BASE_DIR, "userFiles", userName, "model", "code", (fileBaseName + ".py"))
             infoPath = os.path.join(BASE_DIR, "userFiles", userName , "model", "info", (fileBaseName + ".info"))
             
@@ -222,10 +222,10 @@ def executeModel(request):
 
 @login_required(login_url='/login/')
 def detailNeuralNetwork(request, fileName):
-    fileBaseName = str(fileName).rstrip('.keras')
+    fileBaseName = str(fileName).removesuffix('.keras')
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     infoPath = os.path.join(BASE_DIR, "userFiles", request.user.username , "model", "info", (fileBaseName + ".info"))
-                
+
     context = {}
 
     if not os.path.exists(infoPath):
@@ -263,3 +263,26 @@ def listTrainingNeuralNetwork(request):
     loadContextMessages(request,context)
     
     return render(request, 'ENNApp/trainingTable.html', context)
+
+
+
+
+@login_required(login_url='/login/')
+def uploadNeuralNetworkView(request):
+    return render(request, 'ENNApp/uploadNeuralNetwork.html')
+
+
+@login_required(login_url='/login/')
+def addNeuralNetwork(request):
+    if request.method == "POST" and request.FILES['neuralNetwork']:
+        neuralNetworktFile = request.FILES["neuralNetwork"]
+        fileSystem = FileSystemStorage()
+        userName = request.user.username
+        file = fileSystem.save( userName + "/neuralNetwork/" + neuralNetworktFile.name, neuralNetworktFile)
+        print("++++++++++")
+        filename = file.split("/")[-1]
+        print(filename)
+        neural.loadNeuralNetworkFile(userName, filename)
+
+
+    return redirect('listNeuralNetwork')

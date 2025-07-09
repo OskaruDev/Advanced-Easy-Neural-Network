@@ -1,5 +1,5 @@
 {% extends './baseTemplate.html' %}
-
+{% load static %}
 {% block mainBlock %} 
 
 
@@ -8,10 +8,10 @@
      <div class="card mb-3">
         <div class="card-header">
           <i class="fas fa-table"></i>
-          DataSets List</div>
+          Neural Networks List</div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered dataSetTable" width="100%" cellspacing="0">
+            <table class="table table-bordered neuralNetworkTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
                     <th>Name</th>
@@ -36,22 +36,20 @@
                 </tr>
               </tfoot>
               <tbody>
-                {% for dataset in datasets %}
+                {% for neuralNetwork in neuralNetworks %}
                     <tr>
-                        <td>{{ dataset.name }}</td>
+                        <td>{{ neuralNetwork.name }}</td>
                         {% if user.is_superuser %}
-                            <th>{{ dataset.userOwner | capfirst }} </th>
+                            <th>{{ neuralNetwork.userOwner | capfirst }} </th>
                         {% endif %}
-                        <td>{{ dataset.creationDate }}</td>
-                        <td>{{ dataset.size }}</td>
+                        <td>{{ neuralNetwork.creationDate }}</td>
+                        <td>{{ neuralNetwork.size }}</td>
                         <td>
                             <form class="form-inline" >
                                 <div class="buttomGroup form-group">
-                                    {% if dataset.userOwner == user.username %}
-                                    <i onclick="location.href='/showDatasetSample/{{ dataset.name }}';" class="editbuttom fas fa-edit"></i>
+                                    {% if neuralNetwork.userOwner == user.username %}
+                                    <i onclick="location.href='/evaluateNeuralNetwork/{{ neuralNetwork.name }}';" class=" evaluatebuttom fas fa-chart-bar"></i>
                                     {% endif %}
-                                    <i onclick="location.href='{{ dataset.url }}';" class="downloadbuttom fas fa-file-download"></i>
-                                    <i class="deletebuttom far fa-trash-alt" data-toggle="modal" data-target="#DeleteMessageModal" data-url="{{ dataset.deleteUrl }}"></i>
                                 </div>
                             </form>
                         </td>  
@@ -60,8 +58,6 @@
               </tbody>
             </table>
           </div>
-          <br>
-          <button type="button" id="gotoUploadViewButtom" onclick="location.href='{% url 'uploadDatasetView' %}';" class="btn btn-primary centerButtom">Add New DataSet</button>
         </div>
         <div class="card-footer small text-muted"></div>
 
@@ -78,7 +74,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Do you really want to delete these dataset? This process cannot be undone.</p>
+                        <p>Do you really want to delete these Neural Network? This process cannot be undone.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
@@ -87,5 +83,4 @@
                 </div>
             </div>
         </div>
-
 {% endblock %}

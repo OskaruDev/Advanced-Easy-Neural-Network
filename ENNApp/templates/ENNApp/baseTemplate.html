@@ -65,7 +65,7 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
         </li> -->
-        <li class="nav-item {% if request.get_full_path == "/listDatasets/" or request.get_full_path == "/uploadView/" %} active {% endif %}">
+        <li class="nav-item {% if request.get_full_path == "/listDatasets/" or request.get_full_path == "/uploadDatasetView/" %} active {% endif %}">
           <a class="nav-link" href="{% url 'listDatasets' %}">
             <i class="fas fa-fw fa-table"></i>
             <span>Datasets</span></a>
@@ -74,6 +74,11 @@
           <a class="nav-link" href="{% url 'listNeuralNetwork' %}">
             <i class="fas fa-project-diagram"></i>
             <span>Neural Network</span></a>
+        </li>
+        <li class="nav-item {% if request.get_full_path == "/listEvaluationView/" %} active {% endif %}">
+          <a class="nav-link" href="{% url 'listEvaluationView' %}">
+            <i class="fas fa-chart-bar fa-lg"></i>
+            <span>Evaluate Model</span></a>
         </li>
         <!--Custom-->
         {% if user.is_superuser %}
