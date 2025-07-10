@@ -484,24 +484,32 @@ function evaluateModel() {
   $("input:checkbox:not(:checked)[name='targetsToModel[]']").each(function(){
     dataNames.push($(this).val());
   });
-  
-  var rowData = JSON.stringify({
-    targetsNames: targetsNames,
-    dataNames, dataNames
-  });
 
- $.post(urlEvaluateModel, 
-    {
-      rowData: rowData,
-      metric: $('input:radio[name=metric]:checked').val(),
-      dataset: $("#datasetName").val(),
-      neuralNetworkName: $("#neuralNetworkName").val(),
-      csrfmiddlewaretoken: csrftoken
-    },
-    function(){
-        window.location.reload();
-        $( "#msjErr" ).scrollTop( 300 );
+
+  if(parseInt($("#lastDimNumber").val()) == targetsNames.length && parseInt($("#firstDimNumber").val()) == dataNames.length){
+    var rowData = JSON.stringify({
+      targetsNames: targetsNames,
+      dataNames, dataNames
     });
+
+  $.post(urlEvaluateModel, 
+      {
+        rowData: rowData,
+        metric: $('input:radio[name=metric]:checked').val(),
+        dataset: $("#datasetName").val(),
+        neuralNetworkName: $("#neuralNetworkName").val(),
+        csrfmiddlewaretoken: csrftoken
+      },
+      function(){
+          window.location.reload();
+          $( "#msjErr" ).scrollTop( 300 );
+      });
+
+    }else{
+      $("#selectTargetModalErrText").append("The Neueal Network requires "+ $("#firstDimNumber").val() +" input data and "+ $("#lastDimNumber").val() +" output data")
+      $("#selectTargetModalErr").show()
+      $('#selectTargetModal').animate({ scrollTop: 0 }, 'slow');
+    }
 
 }
 

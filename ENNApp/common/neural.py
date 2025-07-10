@@ -273,14 +273,12 @@ def loadNeuralNetworkFile(userName, fileName):
 
 
 def evaluate(data, neuralNetworkPath, datasetPath, metricName, rowData):
-    print("1-----------------") 
     #Load dataset
     dataframe = readDataset(datasetPath)
 
     X_True = dataframe[rowData["dataNames"]].values
     Y_True = dataframe[rowData["targetsNames"]].values
 
-    print("2-----------------") 
     #Load Model
     model = keras.saving.load_model(neuralNetworkPath, custom_objects=None, compile=True, safe_mode=True)
 
@@ -292,7 +290,6 @@ def evaluate(data, neuralNetworkPath, datasetPath, metricName, rowData):
         "metric": model.loss
     }
 
-    print("3-----------------") 
     #Metrics
     if metricName == "mean_squared_error":
         metric = keras.metrics.MeanSquaredError()
@@ -319,25 +316,14 @@ def evaluate(data, neuralNetworkPath, datasetPath, metricName, rowData):
         metric = keras.metrics.R2Score()
         
     
-    
     Y_Result = model.predict(X_True)
-    print("4-----------------") 
     metric.update_state(Y_True, Y_Result)
-    print("5-----------------") 
     scoreTensor = metric.result()
     scoreValue = np.array(scoreTensor)
-    print("6-----------------") 
-    print(type(data)) 
-    print("6-----------------") 
+
     if "metrics" not in data:
         data["metrics"] = {}
     
     data["metrics"][str(metricName)] = str(scoreValue)
-
-    print("7-----------------") 
-    print(metricName)
-    print(scoreValue)
-
-    print("8-----------------") 
 
     return data

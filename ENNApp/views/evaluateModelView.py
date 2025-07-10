@@ -129,7 +129,6 @@ def evaluateModel(request):
     else:
        
         try:
-            print("-----Start----------") 
             toRet = neural.readInfoFile(infoPath)
             print(str(toRet))
             data = json.loads(toRet)
@@ -137,11 +136,10 @@ def evaluateModel(request):
             data = neural.evaluate(data, neuralNetworkPath, datasetPath, metric, rowData)
             context.update(data)
             neural.writeFileWithJson(data, infoFolderPath, fileBaseName + ".info")
-            print("-----End----------") 
 
         except BaseException as e:
             context.update({"messageErr": "An error occurred reading the file (" + str(e) +")"})
-            print("ERR ----------" + str(e))
+            print("ERROR: " + str(e))
     
     
     
