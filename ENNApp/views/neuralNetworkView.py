@@ -205,6 +205,10 @@ def executeModel(request):
             models = json.loads(request.POST["data"])
             rowData = json.loads(request.POST["rowData"])
             toRet = neural.executeModel(models, rowData, dataSetsPath, userFolderPath)
+            if settings.USE_DOCKER_FOR_TRAINING:
+                print("------------------------------------------------------------------ test OK")
+            else:
+                print("------------------------------------------------------------------ test No OK")
             context.update(toRet)
             
 

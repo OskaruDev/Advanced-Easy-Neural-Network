@@ -38,7 +38,11 @@ def getSamples(datasetPaht, numSamples=30):
     print("Begin getSamples")
     return toRet
 
-
+def hasNotCategoricCols(datasetPaht):
+    dataframe = readDataset(datasetPaht)
+    cols = dataframe.columns
+    numericCols = dataframe._get_numeric_data().columns
+    return len(cols) == len(numericCols)
 
 def preprocessDataset(parameters, datasetDir):
 

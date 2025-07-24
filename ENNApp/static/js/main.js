@@ -116,6 +116,10 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+
+$(document).ready(function() {
   $('#dataframeSample').addClass("table table-bordered");
   $('#dataframeSample').attr("width","100%");
   $('#dataframeSample').attr("cellspacing","0");
@@ -332,7 +336,8 @@ function executeModels(){
     dataNames, dataNames
   });
 
-  const intervaloReloadTrainTable = setInterval(reloadTrainTable(urlTrainList), 5000);
+
+  const intervaloReloadTrainTable = setInterval(reloadTrainTable, 5000);
 
   $.post(executeModelUrl, 
     {
@@ -347,11 +352,13 @@ function executeModels(){
         location.href=urlSucess;
     });
 
+    reloadTrainTable(urlTrainList);
+
 }
 
-function reloadTrainTable(url) {
+function reloadTrainTable() {
     $.ajax({
-        url: url
+        url: urlTrainList
     }).done(function (data) {
         $("#includeTrainingTable").children().remove()
         $("#includeTrainingTable").append(data)

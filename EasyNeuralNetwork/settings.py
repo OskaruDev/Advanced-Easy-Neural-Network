@@ -138,4 +138,4 @@ LOGOUT_REDIRECT_URL = '/login/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Docker Training
-USE_DOCKER_FOR_TRAINING = True
+USE_DOCKER_FOR_TRAINING = False

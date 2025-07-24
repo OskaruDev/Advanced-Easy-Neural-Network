@@ -215,6 +215,16 @@
     color:#005fff
 }
 
+.datasetNotValid{
+    color: #991111;
+    font-size: 32px;
+    text-align: center;
+}
+
+.datasetNotValid:hover{
+    color: #cf0b0b;
+}
+
 /***
 Step Form
 **/

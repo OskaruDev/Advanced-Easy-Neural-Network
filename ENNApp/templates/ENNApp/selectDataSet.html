@@ -37,10 +37,16 @@
                         <td>{{ dataset.creationDate }}</td>
                         <td>{{ dataset.size }}</td>
                         <td>
-                            <div class="buttomGroup form-group createModelbuttom">
-                                <i onclick="location.href='/createModel/{{ dataset.name }}';"
-                                    class=" fas fa-cogs"></i>
-                            </div>
+                            {% if dataset.hasNotCategorical %}
+                                <div class="buttomGroup form-group createModelbuttom">
+                                    <i onclick="location.href='/createModel/{{ dataset.name }}';"
+                                        class=" fas fa-cogs"></i>
+                                </div>
+                            {% else %}
+                                <div class="buttomGroup form-group datasetNotValid">
+                                    <i class=" fa fa-times" data-toggle="tooltip" data-placement="left" title="This dataset has categorical data, please preprocess it"></i>
+                                </div>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

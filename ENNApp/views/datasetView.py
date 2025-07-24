@@ -208,5 +208,6 @@ def listDataset(dataSetsPath):
                 datasets.append({
                     "name": file,  
                     "creationDate": time.ctime(os.path.getctime(filepath)), 
+                    "hasNotCategorical": preprocessing.hasNotCategoricCols(filepath),
                     "size": convert_size(os.path.getsize(filepath))})
         return datasets
