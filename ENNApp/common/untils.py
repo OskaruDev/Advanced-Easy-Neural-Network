@@ -30,7 +30,6 @@ def readFile(filePath):
 
 
 def writeFileWithJson(source,dir, filename):
-    #source = json.dumps(str(source))
     source = json.dumps(source)
     writeFile(source,dir, filename) 
 

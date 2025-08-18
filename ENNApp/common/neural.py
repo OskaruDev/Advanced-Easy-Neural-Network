@@ -6,17 +6,10 @@ import sys
 import json
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
-# tensorflow
-#import tensorflow
-# keras
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
 from .untils import readDataset, writeDataset, writeFile, createDirIfNotExist, readFile, writeFileWithJson, deleteFile
-
-#from sklearn.model_selection import StratifiedKFold
-#kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=5)
-
 
 
 def executeDockerModel(models, rowData, datasetPath, userFolderPath):

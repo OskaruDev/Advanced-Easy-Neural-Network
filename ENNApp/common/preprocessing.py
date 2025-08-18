@@ -10,9 +10,6 @@ from .untils import readDataset, writeDataset
 def getSamples(datasetPaht, numSamples=30):
     dataframe = readDataset(datasetPaht)
     sample = dataframe.sample(n=numSamples) if dataframe.shape[0] >= numSamples else dataframe
-    #sample = dataframe.sample(n=numMuestras).shape
-    #dataframe.sample(n=numMuestras, random_state=1) Produce siempre los mismos resultados
-
 
     #Get Categoricos
     cols = dataframe.columns

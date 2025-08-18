@@ -50,10 +50,7 @@ def registerUser(request):
         if userModel.objects.filter(username=username).exists():
             return render(request, 'register.html', {'registerError': True})
         else:
-            newUser = userModel.objects.create_user(username, email, password)
-            #newUser.last_name = request.POST['lastName']
-            #newUser.first_name = request.POST['firstName']
-            #newUser.save()
+            userModel.objects.create_user(username, email, password)
             return redirect('login')
     else: 
         return render(request, 'register.html')

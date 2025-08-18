@@ -12,6 +12,7 @@ import os, time
 import math
 from ..common import preprocessing
 from ..common import neural
+from ..common import executeModelStandAlone
 from ..common.untils import readFile
 import json
 
@@ -204,11 +205,11 @@ def executeModel(request):
         try:       
             models = json.loads(request.POST["data"])
             rowData = json.loads(request.POST["rowData"])
-            toRet = neural.executeModel(models, rowData, dataSetsPath, userFolderPath)
+            toRet = executeModelStandAlone.iniciateModels(models, rowData, dataSetsPath, userFolderPath)
             if settings.USE_DOCKER_FOR_TRAINING:
-                print("------------------------------------------------------------------ test OK")
+                print("USE_DOCKER_FOR_TRAINING Activate")
             else:
-                print("------------------------------------------------------------------ test No OK")
+                print("USE_DOCKER_FOR_TRAINING No Activate")
             context.update(toRet)
             
 
@@ -283,7 +284,6 @@ def addNeuralNetwork(request):
         fileSystem = FileSystemStorage()
         userName = request.user.username
         file = fileSystem.save( userName + "/neuralNetwork/" + neuralNetworktFile.name, neuralNetworktFile)
-        print("++++++++++")
         filename = file.split("/")[-1]
         print(filename)
         neural.loadNeuralNetworkFile(userName, filename)
