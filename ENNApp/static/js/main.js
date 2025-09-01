@@ -513,7 +513,7 @@ function evaluateModel() {
       });
 
     }else{
-      $("#selectTargetModalErrText").append("The Neueal Network requires "+ $("#firstDimNumber").val() +" input data and "+ $("#lastDimNumber").val() +" output data")
+      $("#selectTargetModalErrText").append("The Neural Network requires "+ $("#firstDimNumber").val() +" input data and "+ $("#lastDimNumber").val() +" output data")
       $("#selectTargetModalErr").show()
       $('#selectTargetModal').animate({ scrollTop: 0 }, 'slow');
     }

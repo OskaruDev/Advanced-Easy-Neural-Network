@@ -205,12 +205,13 @@ def executeModel(request):
         try:       
             models = json.loads(request.POST["data"])
             rowData = json.loads(request.POST["rowData"])
-            toRet = neural.executeModel(models, rowData, dataSetsPath, userFolderPath)
             if settings.USE_DOCKER_FOR_TRAINING:
                 print("USE_DOCKER_FOR_TRAINING Activate")
                 #toRet = executeModelStandAlone.iniciateModels(models, rowData, dataSetsPath, userFolderPath)
+                toRet = neural.executeModel(models, rowData, dataSetsPath, userFolderPath)
             else:
                 print("USE_DOCKER_FOR_TRAINING No Activate")
+                toRet = neural.executeModel(models, rowData, dataSetsPath, userFolderPath)
             context.update(toRet)
             
 
